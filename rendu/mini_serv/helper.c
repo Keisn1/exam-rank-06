@@ -1,12 +1,17 @@
-#include "helper.h"
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <string.h>
 
-int getClientId() {
+int get_client_id() {
 	static int clientId = 0;
 	return clientId++;
 }
 
 int ft_putstr(char* str) {
-	write(STDOUT_FILENO, str, strlen(err));
+	write(STDOUT_FILENO, str, strlen(str));
 	return 1;
 }
 
@@ -16,7 +21,7 @@ int ft_puterror(char* err) {
 }
 
 int fatal_err() {
-	int ft_puterror("Fatal error\n");
+	return ft_puterror("Fatal error\n");
 }
 
 char *str_join(char *buf, char *add)
@@ -69,8 +74,8 @@ int extract_message(char **buf, char **msg)
 }
 
 int get_socket(int port) {
-	int sockfd, connfd, len;
-	struct sockaddr_in servaddr, cli;
+	int sockfd;
+	struct sockaddr_in servaddr;
 
 	// socket create and verification
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -95,7 +100,7 @@ int get_socket(int port) {
 	return sockfd;
 }
 
-int listen_to_socket(sockfd) {
+void listen_to_socket(int sockfd) {
 	if (listen(sockfd, 10) != 0)
 		exit(fatal_err());
 }

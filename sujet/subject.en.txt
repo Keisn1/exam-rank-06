@@ -14,12 +14,13 @@ Your program must be non-blocking but client can be lazy and if they don't read 
 
 Your program must not contains #define preproc
 Your program must only listen to 127.0.0.1
+
 The fd that you will receive will already be set to make 'recv' or 'send' to block if select hasn't be called before calling them, but will not block otherwise. 
 
 When a client connect to the server:
 - the client will be given an id. the first client will receive the id 0 and each new client will received the last client id + 1
-- %d will be replace by this number
 - a message is sent to all the client that was connected to the server: "server: client %d just arrived\n"
+- %d will be replace by this number
 
 clients must be able to send messages to your program.
 - message will only be printable characters, no need to check
